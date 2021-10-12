@@ -20,6 +20,13 @@ app.get('/', (req, res) => {
   rollbar.info('html file served successfully')
 });
 
+app.get('/', (req, res) => {
+  res.send('hello, world')
+
+  res.status(500).send({ message: 'Hello, world'})
+})
+
+
 app.get('/errorTest', (req, res) => {
   try {
     nonExistentFunction();
