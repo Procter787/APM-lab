@@ -13,7 +13,10 @@ rollbar.log("Hello world!");
 
 const app = express()
 
-
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/index.html'))
+  rollbar.info('html file served successfully')
+});
 
 try {
     nonExistentFunction();
