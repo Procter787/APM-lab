@@ -1,19 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href='/style'>
+    <link rel="stylesheet" href='style.css'>
     <title>Lab 10/12/2021</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
 </head>
+
 <body>
     <h1>This is the LABBBBB</h1>
 
     <form>
-        <input type="text" placeholder="Type name here"/>
-        <button>Add Student</button>
+        <input id='newItem' type="text" placeholder="Type name here" />
+        <button id='addItem'>Add Student</button>
     </form>
-    
+
+    <script>
+        document.querySelector('#addItem').addEventListener('click', (e) => {
+            e.preventDefault();
+            const itemInput = document.querySelector('#newItem');
+
+            // handle edge case of user submitting empty value
+            if (!itemInput.value.trim()) {
+                alert('Cannot send empty item!');
+                return;
+            }
+
+            const payload = {
+                item: itemInput.value
+            }
+
+            axios
+                .post('http://localhost:4400/api/student', payload)
+                .then(res => {
+                    alert('Item added!');
+
+                    itemInput.value = '';
+                    itemInput.focus();
+                })
+                .catch(err => console.log(err))
+        });
+
+    </script>
+
 </body>
+
 </html>
